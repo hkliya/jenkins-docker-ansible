@@ -1,6 +1,6 @@
 - hosts: localhost
   remote_user: vagrant
-  sudo: yes
+  become: true
   roles:
     - java
     - docker

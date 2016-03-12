@@ -3,21 +3,24 @@
     path="{{ item }}"
     state=directory
     mode=777
-  with_items: directories
+  with_items:
+    - "{{ directories }}"
   tags: [jenkins]
 
 - name: Config files are present
   copy:
     src='{{ item }}'
     dest='{{ jenkins_directory }}/{{ item }}'
-  with_items: configs
+  with_items:
+    - "{{ configs }}"
   tags: [jenkins]
 
 - name: Plugins are present
   copy:
     src='{{ item }}'
     dest='{{ jenkins_directory }}/plugins/{{ item }}'
-  with_items: plugins
+  with_items:
+    - "{{ plugins }}"
   tags: [jenkins]
 
 - name: Build job directories are present
@@ -25,7 +28,8 @@
     path='{{ jenkins_directory }}/jobs/{{ item }}'
     state=directory
     mode=0777
-  with_items: jobs
+  with_items:
+    - "{{ jobs }}"
   tags: [jenkins]
 
 - name: Build jobs are present
@@ -34,7 +38,8 @@
     dest='{{ jenkins_directory }}/jobs/{{ item }}/config.xml'
     mode=0777
     backup=yes
-  with_items: jobs
+  with_items:
+    - "{{ jobs }}"
   tags: [jenkins]
 
 - name: Deployment job directories are present
@@ -42,7 +47,8 @@
     path='{{ jenkins_directory }}/jobs/{{ item }}-deployment'
     state=directory
     mode=0777
-  with_items: jobs
+  with_items:
+    - "{{ jobs }}"
   tags: [jenkins]
 
 - name: Deployment jobs are present
@@ -51,7 +57,8 @@
     dest='{{ jenkins_directory }}/jobs/{{ item }}-deployment/config.xml'
     backup=yes
     mode=0777
-  with_items: jobs
+  with_items:
+    - "{{ jobs }}"
   tags: [jenkins]
 
 - name: Container is running
